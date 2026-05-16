@@ -1,6 +1,11 @@
+# sensor service
 from typing import List
-from ..models.sensor import Sensor
+from ..models.sensor import Sensor, SensorCreate
 
-async def get_all_sensors() -> List[Sensor]:
-    # Placeholder: return empty list
-    return []
+class SensorService:
+    async def create(self, sensor: SensorCreate) -> Sensor:
+        # placeholder logic
+        return Sensor(id=1, **sensor.dict())
+
+    async def list_all(self) -> List[Sensor]:
+        return []

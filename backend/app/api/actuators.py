@@ -1,10 +1,14 @@
+# actuators API
 from fastapi import APIRouter, Depends
-from typing import List
-from ..models.actuator import Actuator
-from ..services.actuator_service import get_all_actuators
+from ..models.actuator import ActuatorCreate, Actuator
+from ..services.actuator_service import ActuatorService
 
 router = APIRouter()
 
-@router.get("/", response_model=List[Actuator])
-async def read_actuators():
-    return await get_all_actuators()
+@router.post("/", response_model=Actuator)
+async def create_actuator(actuator: ActuatorCreate, service: ActuatorService = Depends()):
+    return await service.create(actuator)
+
+@router.get("/", response_model=list[Actuator])
+async def list_actuators(service: ActuatorService = Depends()):
+    return await service.list_all()
